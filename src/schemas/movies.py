@@ -6,26 +6,26 @@ from datetime import date as Date
 class GenreSchema(BaseModel):
     id: int
     name: str
-    model_config = {"from_attributes": True,}
+    model_config = {"from_attributes": True}
 
 
 class ActorSchema(BaseModel):
     id: int
     name: str
-    model_config = {"from_attributes": True,}
+    model_config = {"from_attributes": True}
 
 
 class CountrySchema(BaseModel):
     id: int
     code: str
     name: str | None = None
-    model_config = {"from_attributes": True,}
+    model_config = {"from_attributes": True}
 
 
 class LanguageSchema(BaseModel):
     id: int
     name: str
-    model_config = {"from_attributes": True,}
+    model_config = {"from_attributes": True}
 
 
 class MovieBase(BaseModel):
@@ -68,7 +68,7 @@ class MovieUpdateRequest(BaseModel):
 
 class MovieDetailSchema(MovieBase):
     id: int
-    model_config = {"from_attributes": True,}
+    model_config = {"from_attributes": True}
 
 
 class MovieListItemSchema(BaseModel):
@@ -77,7 +77,7 @@ class MovieListItemSchema(BaseModel):
     date: Date
     score: float
     overview: str
-    model_config = {"from_attributes": True,}
+    model_config = {"from_attributes": True}
 
 
 class MovieListResponseSchema(BaseModel):
@@ -87,4 +87,4 @@ class MovieListResponseSchema(BaseModel):
     total_pages: int
     total_items: int
 
-    model_config = {"from_attributes": True,}
+    model_config = {"from_attributes": True}

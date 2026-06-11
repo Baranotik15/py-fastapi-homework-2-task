@@ -7,18 +7,25 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import joinedload
 
 from database import get_db
-from schemas.movies import MovieCreateRequest, MovieUpdateRequest, MovieDetailSchema, MovieListResponseSchema, MovieListItemSchema
+from schemas.movies import (
+    MovieCreateRequest,
+    MovieUpdateRequest,
+    MovieDetailSchema,
+    MovieListResponseSchema,
+    MovieListItemSchema,
+)
 from database.models import MovieModel, CountryModel, GenreModel, ActorModel, LanguageModel
 
 
 router = APIRouter()
 
+
 @router.get("/movies/")
 async def get_movies(
     page: int = Query(default=1, ge=1),
     per_page: int = Query(default=10, ge=1, le=20),
-    db: AsyncSession = Depends(get_db)
-    ):
+    db: AsyncSession = Depends(get_db),
+):
     offset = (page - 1) * per_page
 
     total = await db.execute(select(func.count(MovieModel.id)))
