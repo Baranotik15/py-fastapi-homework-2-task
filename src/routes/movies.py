@@ -153,7 +153,7 @@ async def update_movie(movie_id: int, movie: MovieUpdateRequest, db: AsyncSessio
         return {"detail": "Movie updated successfully."}
     except IntegrityError:
         await db.rollback()
-        raise HTTPException(status_code=400, detail="Movie with this title already exists.")
+        raise HTTPException(status_code=400, detail="Invalid input data.")
 
 
 @router.delete("/movies/{movie_id}/")

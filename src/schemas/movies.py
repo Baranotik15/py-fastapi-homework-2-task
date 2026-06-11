@@ -1,6 +1,8 @@
-from pydantic import BaseModel
+from datetime import date as Date, timedelta
+
+from pydantic import BaseModel, Field, field_validator
+
 from database.models import MovieStatusEnum
-from datetime import date as Date
 
 
 class GenreSchema(BaseModel):
@@ -43,17 +45,24 @@ class MovieBase(BaseModel):
 
 
 class MovieCreateRequest(BaseModel):
-    name: str
+    name: str = Field(max_length=255)
     date: Date
-    score: float
+    score: float = Field(ge=0, le=100)
     overview: str
     status: MovieStatusEnum
-    budget: float
-    revenue: float
+    budget: float = Field(ge=0)
+    revenue: float = Field(ge=0)
     country: str
     genres: list[str]
     actors: list[str]
     languages: list[str]
+
+    @field_validator("date")
+    @classmethod
+    def date_not_too_far_in_future(cls, v):
+        if v > Date.today() + timedelta(days=365):
+            raise ValueError("date must not be more than one year in the future")
+        return v
 
 
 class MovieUpdateRequest(BaseModel):
