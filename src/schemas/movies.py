@@ -66,12 +66,12 @@ class MovieUpdateRequest(BaseModel):
     revenue: float | None = None
 
 
-class Movie(MovieBase):
+class MovieDetailSchema(MovieBase):
     id: int
     model_config = {"from_attributes": True,}
 
 
-class MovieListItem(BaseModel):
+class MovieListItemSchema(BaseModel):
     id: int
     name: str
     date: Date
@@ -80,11 +80,11 @@ class MovieListItem(BaseModel):
     model_config = {"from_attributes": True,}
 
 
-class MovieListResponse (BaseModel):
-    movies: list[MovieListItem]
-    prev_page : str | None = None
-    next_page : str | None = None
-    total_pages : int
-    total_items : int
+class MovieListResponseSchema(BaseModel):
+    movies: list[MovieListItemSchema]
+    prev_page: str | None = None
+    next_page: str | None = None
+    total_pages: int
+    total_items: int
 
     model_config = {"from_attributes": True,}
